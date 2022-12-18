@@ -1,7 +1,6 @@
 
 Q1) How would you test this utility?
 
-Test:
     To test this utility, we would need to create a test suite to verify the functionality of each API. This should include unit testing, integration testing, and end-to-end testing. 
 
     1) Unit tests would be used to verify each individual function of the API works as expected. This could include verifying the response codes, the format of the response body, and the data that is returned from the API.
