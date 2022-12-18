@@ -1,115 +1,114 @@
 Steps to run this project
 
 1) Start with cloning 
-```
-git clone git@github.com:shivani2293/Resume-info-Service.git in your terminal.
-```
+   ```
+   git clone git@github.com:shivani2293/Resume-info-Service.git in your terminal.
+   ```
 2) Now cd inside project and then run 
-```
-npm start
-```
+   ```
+   npm start
+   ```
 
-3) Your project should be running now.You can test the APIs with the help of postman with below endpoints.
+3) Your project should be running now. You can test the APIs with the help of the following OpenAPI specification-
     
-    - POST -> to upload resume details
- ```
-   {
-   "endpoint":"http://localhost:8080/api/resume/uploadResumeDetails",
-   "method":"POST",
-   "request":{
-      "queryParams":{
-         
-      },
-      "body":{
-         {
-            "name":"nua portre",
-            "currentJobTitle":"DBEngineer",
-            "currentJobDescription":"DevelopeDB",
-            "currentJobCompany":"Capiot"
-         }
-      }
-   },
-   "response":{
-      "status":"200",
-      "body":{
-         "OK"
-      }
-   }
- }
- ```
-    
-    - GET -> to search resumes by first name or last name
- ```
-    {
-   "endpoint":"http://localhost:8080/api/resume/getResumeByName/neha+dubey",
-   "method":"GET",
-   "description":"Returns resumes whose names match the given name",
-   "parameters":{
-      "name":{
-         "description":"Name of the candidate in the format of FirstName+LastName. e.g. john+doe",
-         "type":"string",
-         "required":true
-      }
-   },
-   "responses":{
-      "status":"200",
-      "body":{
-         {
-            "data":[
-               {
-                  "id":1,
-                  "name":"Shivani Dubey",
-                  "current_job_title":"Software Engineer",
-                  "current_job_desc":"Develop scalable application",
-                  "current_job_company":"TCS"
-               },
-               {
-                  "id":2,
-                  "name":"Neha Pandey",
-                  "current_job_title":"Software Engineer",
-                  "current_job_desc":"Data Metrics and Monitoring",
-                  "current_job_company":"Infosys"
-               }
-            ]
-         }
-      },
-      "400":{
-         "description":"Bad request if the name is not in the correct format"
-      }
-   }
-   
- ```
-    
-    - GET -> to search a resume by ID.
- ```
-    {
-   "endpoint":"http://localhost:8080/api/resume/getResumeById/32",
-   "method":"GET",
-   "description":"Returns resumes whose id match the passed parameter",
-   "parameters":{
-      "id":{
-         "description":"id of the candidate",
-         "type":"string",
-         "required":true
-      }
-   },
-   "description":"Returns resume whose id match the given id",
-   "response":{
-      "status":"200",
-      "body":{
-         {
-            "data":[
-               {
-                  "id":3,
-                  "first_name":"Rigre",
-                  "last_name":"John",
-                  "current_job_title":"DBEngineer",
-                  "current_job_desc":"DevelopeDB",
-                  "current_job_company":"Capiot"
-               }
-            ]
-         }
-      }
-   }
- ```
-    
+   ```YAML   
+   openAPI: 3.0.0
+
+   info:
+      title: Resume Service API
+      version: 1.0.0
+
+   servers:
+   - url: http://localhost:8080/
+
+   paths:
+   /api/resume/getResumeByName/{name}:
+      get:
+         description: Get resume by name
+         operationId: getResumeByName
+         parameters:
+         - name: name
+            in: path
+            description: Name of the person
+            required: true
+            schema:
+               type: string
+         responses:
+         200:
+            description: OK
+            content:
+               application/json:
+               schema:
+                  $ref: '#/components/schemas/ResumeList'
+         400:
+            description: Bad Request
+         404:
+            description: Not Found
+            
+   /api/resume/getResumeById/{id}:
+      get:
+         description: Get resume by ID
+         operationId: getResumeById
+         parameters:
+         - name: id
+            in: path
+            description: Unique ID of the person
+            required: true
+            schema:
+               type: integer
+         responses:
+         200:
+            description: OK
+            content:
+               application/json:
+               schema:
+                  $ref: '#/components/schemas/Resume'
+         400:
+            description: Bad Request
+         404:
+            description: Not Found
+            
+   /api/resume/uploadResumeDetails:
+      post:
+         description: Upload resume details
+         operationId: uploadResumeDetails
+         requestBody:
+         content:
+            application/json:
+               schema:
+               type: object
+               properties:
+                  name:
+                     type: string
+                  currentJobTitle:
+                     type: string
+                  currentJobDescription:
+                     type: string
+                  currentJobCompany:
+                     type: string
+         responses:
+         200:
+            description: OK
+         400:
+            description: Bad Request
+
+   components:
+   schemas:
+      ResumeList:
+         type: array
+         items:
+         $ref: '#/components/schemas/Resume'
+      Resume:
+         type: object
+         properties:
+         id:
+            type: integer
+         name:
+            type: string
+         current_job_title:
+            type: string
+         current_job_desc:
+            type: string
+         current_job_company:
+            type: string
+   ```
