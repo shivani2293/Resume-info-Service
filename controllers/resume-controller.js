@@ -5,7 +5,6 @@ module.exports = {
     const resumeId = req.params.id;
     var query = "SELECT * FROM resume WHERE id = ?";
     db.all(query, resumeId, (err, rows) => {
-      console.log("cchc", rows);
       if (err) {
         res.status(400).json({ error: err.message });
         return;
@@ -76,7 +75,6 @@ module.exports = {
         FROM resume 
         WHERE lower(first_name) = ? OR lower(last_name) = ?
     `;
-    console.log("Query", query);
     db.all(query, [firstName, lastName], (err, rows) => {
       if (err) {
         res.status(400).json({ error: err.message });
