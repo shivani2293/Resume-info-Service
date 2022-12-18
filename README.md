@@ -35,18 +35,18 @@ npm start
          "OK"
       }
    }
-  }
+ }
  ```
     
     - GET -> to search resumes by first name or last name
  ```
     {
-   "endpoint":"http://localhost:8080/api/resume/getResumeByName/neha dubey",
+   "endpoint":"http://localhost:8080/api/resume/getResumeByName/neha+dubey",
    "method":"GET",
    "description":"Returns resumes whose names match the given name",
    "parameters":{
       "name":{
-         "description":"Name of the candidate in the format of FirstName LastName. e.g. john doe",
+         "description":"Name of the candidate in the format of FirstName+LastName. e.g. john+doe",
          "type":"string",
          "required":true
       }
