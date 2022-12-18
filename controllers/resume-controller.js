@@ -15,7 +15,7 @@ module.exports = {
         });
       } else {
         res.json({
-          data: rows,
+          data: rows[0],
         });
       }
     });
