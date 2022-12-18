@@ -22,19 +22,14 @@ module.exports = {
   },
 
   saveResumeDetails: (req, res, next) => {
-    let name = req.body.name.split(" ");
-    let firstName = name[0];
-    let lastName = name[1];
+    let name = req.body.name ? req.body.name.split(" ") : undefined;
+    let firstName = name ? name[0] : undefined;
+    let lastName = name ? name[1] : undefined;
     let currentJobTitle = req.body.currentJobTitle;
     let currentJobDescription = req.body.currentJobDescription;
     let currentJobCompany = req.body.currentJobCompany;
-
-    if (
-      !name ||
-      !currentJobTitle ||
-      !currentJobDescription ||
-      !currentJobCompany
-    ) {
+   
+    if (!name || !currentJobTitle || !currentJobDescription || !currentJobCompany) {
       return res.sendStatus(400).send({
         error: "Bad Request. All Parameters are required.",
       });
