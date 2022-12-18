@@ -1,11 +1,12 @@
 Steps to run this project
 
-1) Start with cloning 
+1) Start with cloning the repo
    ```
-   git clone git@github.com:shivani2293/Resume-info-Service.git in your terminal.
+   git clone git@github.com:shivani2293/Resume-info-Service.git
    ```
-2) Now cd inside project and then run 
+2) Now cd inside project and then run the following (assuming you have node installed)-
    ```
+   npm install
    npm start
    ```
 
